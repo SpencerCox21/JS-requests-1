@@ -11,7 +11,7 @@
 
 // CODE HERE
 
-
+let sayHelloButton = document.querySelector('#say-hello-button')
 
 
 
@@ -27,9 +27,13 @@
 // CODE HERE
 
 
+function sayHelloBtnChange () {
+    sayHelloButton.style.backgroundColor = "black";
+    sayHelloButton.style.color = "white";
 
+}
 
-
+sayHelloButton.addEventListener('mouseover', sayHelloBtnChange)
 
 
 
@@ -44,9 +48,12 @@
 
 // CODE HERE
 
+function sayHelloBtnChangeBack () {
+    sayHelloButton.style.backgroundColor = "#EFEFEF";
+    sayHelloButton.style.color = "black"
+}
 
-
-
+sayHelloButton.addEventListener('mouseout', sayHelloBtnChangeBack)
 
 
 
@@ -70,7 +77,9 @@ const sayHello = () => {
 
 // CODE HERE
 
-
+sayHelloButton.addEventListener('click', () => {
+    sayHello();
+})
 
 
 
@@ -89,7 +98,16 @@ const sayHello = () => {
 
 const ohMy = () => {
     // YOUR CODE HERE
+    axios.get('http://localhost:3000/animals')
 
+
+    .then((response) => {
+        console.log(response.data)
+    })
+
+    .catch(() => {
+
+    })
 
 
 }
@@ -109,13 +127,32 @@ document.getElementById('animals-button').addEventListener('click', ohMy)
     
     We'll be updating this function in the next problem.
 */
+const repeatPara = document.querySelector('#repeat-text')
 
-const repeatMyParam = () => {
+const repeatMyParam = (someparam) => {
     //YOUR CODE HERE
+    axios.get(`http://localhost:3000/repeat/${someparam}`)
 
+    .then((res) => {
+        // console.log(res.data)
 
+        repeatPara.textContent = res.data
+        repeatPara.style.display = 'block';
+
+    })
+    .catch(() => {
+    })
 
 }
+
+
+let repeatButton = document.querySelector('#repeat-button')
+
+repeatButton.addEventListener('click', () => {
+    repeatMyParam("This is a test.");
+})
+
+
 
 // PROBLEM 7
 /*
@@ -131,6 +168,9 @@ const repeatMyParam = () => {
 
 
 
+
+
+
 // PROBLEM 8
 /*
     Time to attach a query to our request!
@@ -142,9 +182,24 @@ const repeatMyParam = () => {
 
 // CODE HERE
 
+const sendQuery = (something) => {
 
+    axios.get(`http://localhost:3000/query-test?anything=${something}`)
 
+    .then((res) => {
+       console.log(res.data)
 
+    })
+    .catch(() => {
+    })
+
+}
+
+let queryButton = document.querySelector('#query-button')
+
+queryButton.addEventListener('click', () => {
+    sendQuery('this-thing-is-another-test.')
+})
 
 
 
